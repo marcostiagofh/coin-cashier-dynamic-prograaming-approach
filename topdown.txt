@@ -1,0 +1,27 @@
+--Top-down version
+algorithm COMPUTE-MIN-COINS(v)
+
+# n is the number of coin types
+# v is the value to be reached
+
+solution = {}
+coins_used = {}
+
+if OPT(v) is uninitialized
+	if v = 0
+		OPT(v) = 0
+    else if v < coins[0]
+		OPT(v) = infinity
+	else
+	    minimum = infinity
+		for i = 1 to n
+			value, coins_used = COMPUTE-MIN-COINS(v-coins[i])
+			value = value + 1
+			if value < minimum
+				minimum = value
+				solution = coins_used
+				actual_coin = coins[i]
+		OPT(v) = minimum
+		solution = actual_coin U solution
+		
+return OPT(v), solution
